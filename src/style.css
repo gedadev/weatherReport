@@ -23,14 +23,32 @@ header {
     align-items: center;
 }
 
-#city-search {
+#search {
     height: 60%;
     margin: 0 50px;
+    display: flex;
+    gap: 10px;
+}
+
+#city-input {
+    height: 100%;
     outline: none;
     padding: 0 12px;
     border-radius: 8px;
     border: none;
     background-color: var(--color-1);
+}
+
+#city-btn {
+    font-size: 25px;
+    align-self: center;
+    cursor: pointer;
+    color: var(--color-3);
+    transition: all .3s;
+}
+
+#city-btn:hover {
+    color: var(--color-4);
 }
 
 main {
