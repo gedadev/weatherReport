@@ -1,3 +1,5 @@
+import './style.css';
+
 async function currentWeather(lat, lon) {
     console.log(lat, lon);
     const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5d0907efdadf22c907135983ee95c9d4`, {mode: 'cors'});
