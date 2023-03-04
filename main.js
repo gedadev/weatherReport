@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("console.log('a')\n\n//# sourceURL=webpack://weatherreport/./src/index.js?");
+eval("async function currentWeather(lat, lon) {\n    console.log(lat, lon);\n    const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5d0907efdadf22c907135983ee95c9d4`, {mode: 'cors'});\n    const data = await resp.json();\n    console.log(data);\n}\n\nasync function getCoordinates(city) {\n    const resp = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=5d0907efdadf22c907135983ee95c9d4`, {mode: 'cors'});\n    const data = await resp.json();\n    currentWeather(data[0].lat, data[0].lon);\n}\n\ngetCoordinates('mexico');\n\n//# sourceURL=webpack://weatherreport/./src/index.js?");
 
 /***/ })
 
