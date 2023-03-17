@@ -1,9 +1,15 @@
 export class Forecast {
 
-    constructor(city) {
+    constructor(city, container) {
         this.city = city;
+        this.container = container;
         this.lat;
         this.lon;
+    }
+
+    async run() {
+        const response = await this.currentWeather();
+        this.displayData(response, this.container)
     }
 
     async currentWeather(units = 'metric') {
@@ -21,6 +27,7 @@ export class Forecast {
     }
 
     displayData(data, div) {
+        this.clearContainer();
         let p;
         for (let i = 0; i < 7; i++) {
             switch (i) {
@@ -74,5 +81,13 @@ export class Forecast {
                     break;
             }
         }
+    }
+
+    clearContainer() {
+        try {
+            while(this.container.children[0]){
+                this.container.children[0].remove();
+            }
+        } catch (e) {}
     }
 }
