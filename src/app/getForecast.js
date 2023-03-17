@@ -1,8 +1,9 @@
 export class Forecast {
 
-    constructor(city, container) {
+    constructor(city, container, units='metric') {
         this.city = city;
         this.container = container;
+        this.units = units;
         this.lat;
         this.lon;
     }
@@ -12,9 +13,9 @@ export class Forecast {
         this.displayData(response, this.container)
     }
 
-    async currentWeather(units = 'metric') {
+    async currentWeather() {
         await this.getCoordinates();
-        const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=5d0907efdadf22c907135983ee95c9d4&units=${units}`, {mode: 'cors'});
+        const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=5d0907efdadf22c907135983ee95c9d4&units=${this.units}`, {mode: 'cors'});
         const data = await resp.json();
         return data;
     }
@@ -44,12 +45,12 @@ export class Forecast {
                     break;
                 case 2:
                     p = document.createElement('p');
-                    p.innerHTML = `${Math.round(data.main.temp)}°c`;
+                    p.innerHTML = `${Math.round(data.main.temp)}°${this.units === 'metric' ? 'c' : 'F'} `;
                     div.appendChild(p);
                     break;
                 case 3:
                     p = document.createElement('p');
-                    p.innerHTML = `Feels like: ${Math.round(data.main.feels_like)}°c`;
+                    p.innerHTML = `Feels like: ${Math.round(data.main.feels_like)}°${this.units === 'metric' ? 'c' : 'F'} `;
                     div.appendChild(p);
                     break;
                 case 4:
@@ -74,7 +75,7 @@ export class Forecast {
                     break;
                 case 6:
                     p = document.createElement('p');
-                    p.innerHTML = `Wind speed: ${data.wind.speed}m/s`;
+                    p.innerHTML = `Wind speed: ${data.wind.speed}${this.units === 'metric' ? 'm/s' : 'mph'} `;
                     div.appendChild(p);
                     break;
                 default:

@@ -4,13 +4,20 @@ import { Forecast } from './app/getForecast';
 const searchInput = document.querySelector('#city-input');
 const searchBtn = document.querySelector('#city-btn');
 const container = document.querySelector('#forecast-container');
-const metric = document.querySelector('#metric-selector');
+const units = document.querySelector('#units-selector');
 
-
-metric.addEventListener('click', () => {
-    console.log(metric.checked);
+units.addEventListener('click', () => {
+    if (units.checked) {
+        units.parentNode.children[1].style.color = 'var(--color-1)';
+        units.parentNode.children[3].style.color = 'var(--color-4)';
+    } else {
+        units.parentNode.children[1].style.color = 'var(--color-4)';
+        units.parentNode.children[3].style.color = 'var(--color-1)';
+    }
+    let forecast = new Forecast(searchInput.value, container, (units.checked ? 'imperial' : 'metric'));
+    forecast.run();
 });
 searchBtn.addEventListener('click', () => {
-    let forecast = new Forecast(searchInput.value, container);
+    let forecast = new Forecast(searchInput.value, container, (units.checked ? 'imperial' : 'metric'));
     forecast.run();
 });

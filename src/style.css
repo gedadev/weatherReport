@@ -106,9 +106,14 @@ main {
     position: absolute;
     z-index: 2;
 }
+
 #temp-toggle > span {
     position: relative;
     z-index: 1;
     color: var(--color-1);
     font-size: 20px;
+}
+
+#temp-toggle > span:first-of-type {
+    color: var(--color-4);
 }
