@@ -1,11 +1,11 @@
 export class Forecast {
 
-    constructor(city, container, units='metric') {
+    constructor(city, container, units='metric', lat, lon) {
         this.city = city;
         this.container = container;
         this.units = units;
-        this.lat;
-        this.lon;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     async run() {
@@ -14,10 +14,16 @@ export class Forecast {
     }
 
     async currentWeather() {
-        await this.getCoordinates();
-        const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=5d0907efdadf22c907135983ee95c9d4&units=${this.units}`, {mode: 'cors'});
-        const data = await resp.json();
-        return data;
+        if (this.city === "") {
+            const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=5d0907efdadf22c907135983ee95c9d4&units=${this.units}`, {mode: 'cors'});
+            const data = await resp.json();
+            return data;    
+        } else {
+            await this.getCoordinates();
+            const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=5d0907efdadf22c907135983ee95c9d4&units=${this.units}`, {mode: 'cors'});
+            const data = await resp.json();
+            return data;
+        }
     }
     
     async getCoordinates() {

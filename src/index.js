@@ -21,3 +21,15 @@ searchBtn.addEventListener('click', () => {
     let forecast = new Forecast(searchInput.value, container, (units.checked ? 'imperial' : 'metric'));
     forecast.run();
 });
+  
+function success(pos) {
+    const crd = pos.coords;
+    let forecast = new Forecast(searchInput.value, container, (units.checked ? 'imperial' : 'metric'), crd.latitude, crd.longitude);
+    forecast.run();
+}
+
+function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+navigator.geolocation.getCurrentPosition(success, error, {timeout: 3000});
