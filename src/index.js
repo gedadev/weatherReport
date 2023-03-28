@@ -1,10 +1,15 @@
 import './style.css';
 import { Forecast } from './app/getForecast';
+import { DailyForecast } from './app/dailyForecast';
 
 const searchInput = document.querySelector('#city-input');
 const searchBtn = document.querySelector('#city-btn');
 const container = document.querySelector('#forecast-container');
 const units = document.querySelector('#units-selector');
+const dailyContainer = document.querySelector('#daily-container');
+
+let daily = new DailyForecast(searchInput.value, dailyContainer, (units.checked ? 'imperial' : 'metric'));
+console.log(daily);
 
 searchBtn.addEventListener('click', getForecast);
 
