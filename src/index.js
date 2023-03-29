@@ -8,10 +8,9 @@ const container = document.querySelector('#forecast-container');
 const units = document.querySelector('#units-selector');
 const dailyContainer = document.querySelector('#daily-container');
 
-let daily = new DailyForecast(searchInput.value, dailyContainer, (units.checked ? 'imperial' : 'metric'));
-console.log(daily);
 
-searchBtn.addEventListener('click', getForecast);
+
+searchBtn.addEventListener('click', genForecast);
 
 currentPosition();
 
@@ -24,16 +23,18 @@ units.addEventListener('click', () => {
         units.parentNode.children[3].style.color = 'var(--color-1)';
     }
 
-    searchInput.value === "" ? currentPosition() : getForecast();
+    searchInput.value === "" ? currentPosition() : genForecast();
 });
 
-function getForecast() {
+function genForecast() {
     let forecast = new Forecast(searchInput.value, container, (units.checked ? 'imperial' : 'metric'));
     forecast.run();
+    let daily = new DailyForecast(searchInput.value, dailyContainer, (units.checked ? 'imperial' : 'metric'));
+    daily.run();
 }
 
 function currentPosition() {
-    navigator.geolocation.getCurrentPosition(success, error, {timeout: 3000});
+    navigator.geolocation.getCurrentPosition(success, error, {timeout: 5000});
 }
 
 function success(pos) {
