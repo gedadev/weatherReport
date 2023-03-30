@@ -14,6 +14,31 @@ export class DailyForecast extends Forecast {
 
     async run() {
         const response = await this.getDailyForecast();
-        console.log(response.list);
+        this.displayData(response.list, this.container);
+    }
+
+    displayData(data, container) {
+        const maxMin = this.getMaxMin(data);
+        console.log(maxMin);
+    }
+    
+    getMaxMin(data) {
+        let fiveDays = [];
+        let maxTemp = Array(5).fill(-100);
+        let minTemp = Array(5).fill(100);
+        while (data[0]) {
+            fiveDays.push(data.splice(0,8));
+        }
+        fiveDays.forEach((day, i) => {
+            day.forEach((element) => {
+                if (element.main.temp > maxTemp[i]) {
+                    maxTemp[i] = element.main.temp;
+                }
+                if (element.main.temp < minTemp[i]) {
+                    minTemp[i] = element.main.temp;
+                }
+            });
+        });
+        return {maxTemp: maxTemp, minTemp: minTemp};
     }
 }
