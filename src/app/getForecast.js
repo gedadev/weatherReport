@@ -33,15 +33,20 @@ export class Forecast {
         this.lon = data[0].lon;
     }
 
+    convertTimestamp(timestamp) {
+        const date = new Date(timestamp * 1000);
+        const mexicoCityDate = date.toLocaleString('en-US', { timeZone: 'America/Mexico_City' });
+        return mexicoCityDate;
+    }
+
     displayData(data, div) {
         this.clearContainer();
         let p;
         for (let i = 0; i < 7; i++) {
             switch (i) {
                 case 0:
-                    let date = new Date(data.dt).toLocaleTimeString('en-US');
                     p = document.createElement('p');
-                    p.innerHTML = `Updated at ${date}`;
+                    p.innerHTML = `Updated at ${this.convertTimestamp(data.dt)}`;
                     div.appendChild(p);
                     break;
                 case 1:
