@@ -18,8 +18,41 @@ export class DailyForecast extends Forecast {
     }
 
     displayData(data, container) {
+        super.clearContainer();
         const dailyInfo = this.reduceData(data);
-        console.log(dailyInfo);
+        for (let i = 0; i < 5; i++) {
+            const card = document.createElement('div');
+            card.classList.add('daily-card');
+            
+            const date = document.createElement('div');
+            date.classList.add('daily-date');
+            date.textContent = dailyInfo.date[i];
+            card.appendChild(date);
+            
+            const icon = document.createElement('img');
+            icon.classList.add('daily-icon');
+            icon.src = `https://openweathermap.org/img/wn/${dailyInfo.icon[i]}@2x.png`;
+            card.appendChild(icon);
+            
+            const temp = document.createElement('div');
+            temp.classList.add('daily-temp');
+            const max = document.createElement('div');
+            max.classList.add('max');
+            max.textContent = `${Math.round(dailyInfo.maxTemp[i])}°`;
+            temp.appendChild(max);
+            const min = document.createElement('div');
+            min.classList.add('min');
+            min.textContent = `${Math.round(dailyInfo.minTemp[i])}°`;
+            temp.appendChild(min);
+            card.appendChild(temp);
+
+            const forecast = document.createElement('div');
+            forecast.classList.add('daily-forecast');
+            forecast.textContent = dailyInfo.forecast[i];
+            card.appendChild(forecast);
+
+            container.appendChild(card);
+        }
     }
     
     reduceData(data) {
