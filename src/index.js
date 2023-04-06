@@ -8,8 +8,6 @@ const container = document.querySelector('#forecast-container');
 const units = document.querySelector('#units-selector');
 const dailyContainer = document.querySelector('#daily-container');
 
-
-
 searchBtn.addEventListener('click', genForecast);
 
 currentPosition();
@@ -41,6 +39,8 @@ function success(pos) {
     const crd = pos.coords;
     let forecast = new Forecast(searchInput.value, container, (units.checked ? 'imperial' : 'metric'), crd.latitude, crd.longitude);
     forecast.run();
+    let daily = new DailyForecast(searchInput.value, dailyContainer, (units.checked ? 'imperial' : 'metric'), crd.latitude, crd.longitude);
+    daily.run();
 }
 
 function error(err) {
