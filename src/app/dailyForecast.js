@@ -20,7 +20,7 @@ export class DailyForecast extends Forecast {
     displayData(data, container) {
         super.clearContainer();
         const dailyInfo = this.reduceData(data);
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < Object.entries(dailyInfo).length; i++) {
             const card = document.createElement('div');
             card.classList.add('daily-card');
             
