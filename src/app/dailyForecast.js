@@ -18,18 +18,25 @@ export class DailyForecast extends Forecast {
     }
 
     displayData(data, container) {
-        const maxMin = this.getMaxMin(data);
-        console.log(maxMin);
+        const dailyInfo = this.reduceData(data);
+        console.log(dailyInfo);
     }
     
-    getMaxMin(data) {
+    reduceData(data) {
         let fiveDays = [];
+        let date = [];
+        let icon = [];
         let maxTemp = Array(5).fill(-100);
         let minTemp = Array(5).fill(100);
+        let forecast = [];
+        
         while (data[0]) {
             fiveDays.push(data.splice(0,8));
         }
+
         fiveDays.forEach((day, i) => {
+            date.push(super.convertTimestamp(day[1].dt, true));
+            icon.push(day[1].weather[0].icon);
             day.forEach((element) => {
                 if (element.main.temp > maxTemp[i]) {
                     maxTemp[i] = element.main.temp;
@@ -38,7 +45,9 @@ export class DailyForecast extends Forecast {
                     minTemp[i] = element.main.temp;
                 }
             });
+            forecast.push(day[1].weather[0].description);
         });
-        return {maxTemp: maxTemp, minTemp: minTemp};
+
+        return {date:date, icon: icon, maxTemp: maxTemp, minTemp: minTemp, forecast: forecast};
     }
 }

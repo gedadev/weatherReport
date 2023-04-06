@@ -33,10 +33,13 @@ export class Forecast {
         this.lon = data[0].lon;
     }
 
-    convertTimestamp(timestamp) {
+    convertTimestamp(timestamp, short = false) {
         const date = new Date(timestamp * 1000);
-        const mexicoCityDate = date.toLocaleString('en-US', { timeZone: 'America/Mexico_City' });
-        return mexicoCityDate;
+        if (short) {
+            return date.toLocaleDateString('en-US', { timeZone: 'America/Mexico_City' });
+        } else {
+            return date.toLocaleString('en-US', { timeZone: 'America/Mexico_City' });
+        }
     }
 
     displayData(data, div) {
