@@ -66,17 +66,7 @@ export class Forecast {
                     break;
                 case 4:
                     p = document.createElement('p');
-                    if (data.clouds.all < 1) {
-                        p.innerHTML = `Clear sky`;
-                    } else if (data.clouds.all >= 1 && data.clouds.all < 30) {
-                        p.innerHTML = `Mostly clear`;
-                    } else if (data.clouds.all >= 31 && data.clouds.all < 50) {
-                        p.innerHTML = `Partly cloudy`;
-                    } else if (data.clouds.all >= 51 && data.clouds.all < 80) {
-                        p.innerHTML = `Mostly cloudy`;
-                    } else if (data.clouds.all >= 81) {
-                        p.innerHTML = `Overcast`;
-                    }
+                    p.innerHTML = this.getForecast(data.clouds.all);
                     div.appendChild(p);
                     break;
                 case 5:
@@ -92,6 +82,20 @@ export class Forecast {
                 default:
                     break;
             }
+        }
+    }
+
+    getForecast(clouds) {
+        if (clouds < 1) {
+            return `Clear sky`;
+        } else if (clouds >= 1 && clouds < 30) {
+            return `Mostly clear`;
+        } else if (clouds >= 31 && clouds < 50) {
+            return `Partly cloudy`;
+        } else if (clouds >= 51 && clouds < 80) {
+            return `Mostly cloudy`;
+        } else if (clouds >= 81) {
+            return `Overcast`;
         }
     }
 
